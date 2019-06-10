@@ -3,8 +3,11 @@ import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Home from "./components/Home";
 import Navbar from "./components/Navbar";
+
+import Home from "./components/Home";
+import Signin from "./components/Auth/Signin";
+import Signup from "./components/Auth/Signup";
 
 import "./index.css";
 
@@ -14,6 +17,8 @@ const Root = () => (
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route path="/signin" component={Signin} />
+        <Route path="/signup" component={Signup} />
       </Switch>
     </Fragment>
   </BrowserRouter>
