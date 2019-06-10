@@ -1,16 +1,62 @@
 import React, { Component } from "react";
 
 class Signup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      email: "",
+      password: "",
+      password2: ""
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log("Submitted");
+  }
+
   render() {
+    const { username, email, password, password2 } = this.state;
     return (
       <div className="content">
         <h2>Register</h2>
-        <form className="form">
-          <input type="text" placeholder="Username" />
-          <input type="text" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <input type="password2" placeholder="Repeat password" />
-          <button>Submit</button>
+        <form className="form" onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            onChange={this.handleChange}
+            value={username}
+          />
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            onChange={this.handleChange}
+            value={email}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            onChange={this.handleChange}
+            value={password}
+          />
+          <input
+            type="password"
+            placeholder="Repeat password"
+            name="password2"
+            onChange={this.handleChange}
+            value={password2}
+          />
+          <button type="submit">Submit</button>
         </form>
       </div>
     );

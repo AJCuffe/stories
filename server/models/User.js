@@ -21,16 +21,17 @@ const userSchema = new Schema({
 // Add middleware to mongoose schema
 userSchema.pre("save", function(next) {
   // Hash user password before save
-  if (this.password && !this.isModified("password")) {
-    const salt = bcrypt.genSalt(10, function(err, salt) {
-      bcrypt.hash(this.password, salt, function(err, hash) {
-        this.password = hash;
-        next();
-      });
-    });
-  } else {
-    next();
+  if (!this.isModified("password")) {
+    return next();
   }
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) return next(err);
+    bcrypt.hash(this.password, salt, (err, hash) => {
+      if (err) return next(err);
+      this.password = hash;
+      next();
+    });
+  });
 });
 
 module.exports = mongoose.model("User", userSchema);
