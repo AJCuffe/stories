@@ -1,12 +1,14 @@
 const jwt = require("jsonwebtoken");
-const User = require("./models/User");
 
 exports.resolvers = {
   Query: {
-    hello: () => "Hello World"
+    getCurrentUser: async (root, args, { currentUser, User }) => {
+      const user = await User.findOne({ username: currentUser.username });
+      return user;
+    }
   },
   Mutation: {
-    signupUser: async (root, { username, password, email }, context) => {
+    signupUser: async (root, { username, password, email }, { _, User }) => {
       const user = await User.findOne({ username });
       if (user) {
         throw new Error("Username is already taken");

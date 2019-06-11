@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { SIGNUP_USER } from "../../queries";
 import { Mutation } from "react-apollo";
+import Error from "../Error";
 
 class Signup extends Component {
   constructor(props) {
@@ -45,6 +47,9 @@ class Signup extends Component {
                   });
                   // Save token to local storage
                   localStorage.setItem("token", data.signupUser.token);
+                  // Reload current user data
+                  await this.props.refetch();
+                  this.props.history.push("/");
                   // Clear current state
                   this.setState({
                     email: "",
@@ -88,6 +93,7 @@ class Signup extends Component {
               <button type="submit" disabled={loading || this.validateForm()}>
                 Submit
               </button>
+              {error ? <Error message={error.message.split(":")[1]} /> : ""}
             </form>
           )}
         </Mutation>
@@ -96,4 +102,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);

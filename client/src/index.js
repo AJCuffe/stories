@@ -9,6 +9,9 @@ import Home from "./components/Home";
 import Signin from "./components/Auth/Signin";
 import Signup from "./components/Auth/Signup";
 
+// Wrapper session to check currentUser
+import withSession from "./components/withSession";
+
 // Apollo modules
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "react-apollo";
@@ -35,27 +38,29 @@ const authLink = setContext((_, { headers }) => {
 
 // Create Apollo client
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 });
 
 // Routes component
-const Root = () => (
+const Root = ({ session, refetch }) => (
   <BrowserRouter>
     <Fragment>
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/signin" component={Signin} />
-        <Route path="/signup" component={Signup} />
+        <Route path="/signin" render={() => <Signin refetch={refetch} />} />
+        <Route path="/signup" component={() => <Signup refetch={refetch} />} />
       </Switch>
     </Fragment>
   </BrowserRouter>
 );
 
+const RootWithSession = withSession(Root);
+
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Root />
+    <RootWithSession />
   </ApolloProvider>,
   document.getElementById("root")
 );
