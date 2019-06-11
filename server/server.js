@@ -11,6 +11,9 @@ const { makeExecutableSchema } = require("graphql-tools");
 const { typeDefs } = require("./schema");
 const { resolvers } = require("./resolvers");
 
+// Mongoose models
+const User = require("./models/User");
+
 // Configure environment
 dotenv.config();
 
@@ -28,6 +31,20 @@ const PORT = process.env.PORT || 5000;
 
 // Allow client connection to server
 app.use(cors());
+
+// Add middleware to check header request
+app.use(async (req, res, next) => {
+  const token = req.headers.authorization;
+  if (token && token !== null) {
+    try {
+      const currentUser = await jwt.verify(token, process.env.SECRET);
+      req.currentUser = currentUser;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  return next();
+});
 
 app.use(
   "/graphql",
