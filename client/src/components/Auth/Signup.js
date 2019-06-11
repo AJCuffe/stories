@@ -47,9 +47,6 @@ class Signup extends Component {
                   });
                   // Save token to local storage
                   localStorage.setItem("token", data.signupUser.token);
-                  // Reload current user data
-                  await this.props.refetch();
-                  this.props.history.push("/");
                   // Clear current state
                   this.setState({
                     email: "",
@@ -57,6 +54,9 @@ class Signup extends Component {
                     password2: "",
                     username: ""
                   });
+                  // Reload current user data
+                  await this.props.refetch();
+                  this.props.history.push("/");
                 } catch (err) {
                   console.log(err);
                 }
