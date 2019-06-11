@@ -33,7 +33,7 @@ class Signup extends Component {
     const { username, email, password, password2 } = this.state;
     return (
       <div className="content">
-        <h2>Register</h2>
+        <h2>Register New User</h2>
         <Mutation mutation={SIGNUP_USER}>
           {(signupUser, { data, loading, error }) => (
             <form

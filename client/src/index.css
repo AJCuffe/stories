@@ -13,9 +13,10 @@ code {
 }
 
 nav {
-  background-color: #efefef;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  background-color: #7395ae;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #5d5c61;
 }
 
 nav ul {
@@ -24,7 +25,9 @@ nav ul {
 }
 
 nav a {
-  font-size: 25px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1a1a1d;
 }
 
 ul {
@@ -37,7 +40,8 @@ a {
 
 input {
   width: 400px;
-  padding: 6px 12px;
+  padding: 10px 12px;
+  font-size: 15px;
   margin: 8px 0;
   border-radius: 4px;
   box-sizing: border-box;
@@ -48,13 +52,16 @@ button {
   background-color: #4caf50;
   color: white;
   padding: 10px 20px;
+  font-size: 15px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-top: 8px;
 }
 
 .content {
   text-align: center;
+  margin-top: 50px;
 }
 
 .form {
